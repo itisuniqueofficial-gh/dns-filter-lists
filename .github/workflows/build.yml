@@ -1,0 +1,46 @@
+name: Build
+
+# Verifies a clean production build on pushes to main and on demand. The
+# resulting dist/ is uploaded as an artifact for inspection. Deployment is
+# handled separately by deploy.yml.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "src/**"
+      - "config.js"
+      - "scripts/**"
+      - "site/**"
+      - ".github/workflows/build.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # full history for accurate lastModified / contributors
+          persist-credentials: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Unit tests
+        run: node --test scripts/tests/*.test.js
+
+      - name: Build
+        run: node scripts/build.js
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist
+          retention-days: 7

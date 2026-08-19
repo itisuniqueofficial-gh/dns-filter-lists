@@ -1,0 +1,72 @@
+name: Deploy
+
+# Production deployment to Cloudflare Pages on merge to main.
+#
+# A failed validation/build never reaches this workflow because build runs
+# first and the job aborts on any error.
+#
+# DEPLOYMENT MODEL (documented decision):
+#   The recommended default is Cloudflare Pages' native Git integration
+#   (Build command: `npm run build`, Output directory: `dist`), which needs no
+#   secrets in this repository. This workflow is provided as an explicit
+#   CI-driven alternative. It only runs when the required Cloudflare secrets
+#   are configured, so forks and unconfigured repos skip it cleanly.
+#
+# Required repository secrets for this workflow:
+#   CLOUDFLARE_API_TOKEN   - Pages:Edit scoped token
+#   CLOUDFLARE_ACCOUNT_ID  - Cloudflare account id
+# Optional variable:
+#   CLOUDFLARE_PAGES_PROJECT (defaults to "dns-filter-lists")
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: production
+      url: https://dns.itisuniqueofficial.com
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Build (validation gates included)
+        run: node scripts/build.js
+
+      - name: Check Cloudflare secrets
+        id: guard
+        run: |
+          if [ -n "${{ secrets.CLOUDFLARE_API_TOKEN }}" ] && [ -n "${{ secrets.CLOUDFLARE_ACCOUNT_ID }}" ]; then
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+            echo "Cloudflare secrets not configured; skipping CI deploy (native Git integration may handle it)."
+          fi
+
+      - name: Deploy to Cloudflare Pages
+        if: steps.guard.outputs.ready == 'true'
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: >-
+            pages deploy dist
+            --project-name=${{ vars.CLOUDFLARE_PAGES_PROJECT || 'dns-filter-lists' }}
+            --branch=main

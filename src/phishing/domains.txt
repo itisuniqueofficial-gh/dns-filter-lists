@@ -1,0 +1,12 @@
+# Phishing Domains
+# Domains associated with phishing and credential-harvesting campaigns.
+# Sample entries use the reserved ".example" TLD (RFC 2606); contributors
+# replace them with verified domains via reviewed pull requests.
+secure-login-verify.example
+account-update-alert.example
+bank-verification-portal.example
+payment-confirm-now.example
+password-reset-required.example
+delivery-tracking-notice.example
+prize-claim-center.example
+mailbox-quota-exceeded.example

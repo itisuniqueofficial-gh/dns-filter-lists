@@ -1,0 +1,23 @@
+# Tracking Domains
+# Domains used for analytics, telemetry and cross-site user tracking.
+google-analytics.com
+googletagmanager.com
+hotjar.com
+mixpanel.com
+segment.com
+fullstory.com
+mouseflow.com
+crazyegg.com
+scorecardresearch.com
+quantserve.com
+chartbeat.com
+branch.io
+amplitude.com
+heap.io
+kissmetrics.com
+optimizely.com
+mparticle.com
+bugsnag.com
+matomo.cloud
+statcounter.com
+clarity.ms

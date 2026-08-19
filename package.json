@@ -1,0 +1,35 @@
+{
+  "name": "dns-filter-lists",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Open-source, community-maintained, machine-readable domain filter lists. Static site + build system for https://dns.itisuniqueofficial.com",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "validate": "node scripts/validate-lists.js",
+    "normalize": "node scripts/normalize-lists.js",
+    "normalize:write": "node scripts/normalize-lists.js --write",
+    "duplicates": "node scripts/detect-duplicates.js",
+    "build:lists": "node scripts/build-lists.js",
+    "build:index": "node scripts/generate-index.js",
+    "build:stats": "node scripts/generate-stats.js",
+    "build:metadata": "node scripts/generate-index.js && node scripts/generate-stats.js",
+    "build:sitemap": "node scripts/generate-sitemap.js",
+    "build:site": "node scripts/build-site.js",
+    "build": "node scripts/build.js",
+    "dev": "node scripts/dev-server.js",
+    "clean": "node scripts/clean.js",
+    "test": "node --test scripts/tests/*.test.js"
+  },
+  "license": "MIT",
+  "author": "It Is Unique Official",
+  "homepage": "https://dns.itisuniqueofficial.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/itisuniqueofficial-gh/dns-filter-lists"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}

@@ -1,0 +1,42 @@
+name: List / category request
+description: Request a new category, a list improvement, or a documentation change.
+title: "[request] <short summary>"
+labels: [needs-review]
+body:
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Request type
+      options:
+        - New category / list
+        - List improvement
+        - Documentation change
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: name
+    attributes:
+      label: Proposed name / slug (for a new category)
+      placeholder: e.g. Cryptomining (slug: cryptomining)
+  - type: textarea
+    id: details
+    attributes:
+      label: Details
+      description: Describe the request and the problem it solves.
+    validations:
+      required: true
+  - type: textarea
+    id: rationale
+    attributes:
+      label: Rationale
+      description: Why is this warranted? For a new category, why not an existing one?
+    validations:
+      required: true
+  - type: checkboxes
+    id: agreements
+    attributes:
+      label: Confirmation
+      options:
+        - label: This treats domains as classification data only and makes no legally authoritative claim.
+          required: true

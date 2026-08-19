@@ -1,0 +1,23 @@
+# Code owners. GitHub requests review from these owners automatically.
+# Replace the placeholder handles with real maintainers before enabling
+# "Require review from Code Owners" in branch protection.
+
+# Default owner for everything.
+*                       @AdiyogX
+
+# Build system, site generator and CI are sensitive — require core review.
+/scripts/               @AdiyogX
+/.github/               @AdiyogX
+/config.js              @AdiyogX
+/site/                  @AdiyogX
+
+# Security-sensitive categories.
+/src/malware/           @AdiyogX
+/src/phishing/          @AdiyogX
+/src/suspicious/        @AdiyogX
+
+# General categories.
+/src/social/            @AdiyogX
+/src/ads/               @AdiyogX
+/src/tracking/          @AdiyogX
+/src/other/             @AdiyogX

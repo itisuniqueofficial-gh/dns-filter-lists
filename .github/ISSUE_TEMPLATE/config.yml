@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Contribute domains via Pull Request
+    url: https://github.com/itisuniqueofficial-gh/dns-filter-lists/blob/main/CONTRIBUTING.md
+    about: The fastest way to add or correct domains is a pull request editing src/<category>/domains.txt.
+  - name: Report a security issue
+    url: https://github.com/itisuniqueofficial-gh/dns-filter-lists/blob/main/SECURITY.md
+    about: Please follow the responsible disclosure process instead of opening a public issue.

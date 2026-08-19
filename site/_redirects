@@ -1,0 +1,9 @@
+# Cloudflare Pages redirects.
+# https://developers.cloudflare.com/pages/configuration/redirects/
+
+# Convenience: /docs -> /documentation/
+/docs            /documentation/   301
+/docs/           /documentation/   301
+
+# Convenience: bare category .txt with no file -> aggregate list.
+# (Category index pages are served normally at /<category>/.)

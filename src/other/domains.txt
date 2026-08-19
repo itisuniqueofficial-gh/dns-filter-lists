@@ -1,0 +1,6 @@
+# Other Domains
+# Miscellaneous community-submitted domains that do not fit another category.
+# Uses reserved documentation domains (RFC 2606) as neutral samples.
+example.com
+example.net
+example.org

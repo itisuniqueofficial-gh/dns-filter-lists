@@ -1,0 +1,18 @@
+# Build output
+/dist/
+
+# Node
+node_modules/
+npm-debug.log*
+.npm
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# Logs
+*.log

@@ -1,0 +1,26 @@
+# Advertising Domains
+# Domains serving advertisements and ad-delivery infrastructure.
+doubleclick.net
+googlesyndication.com
+googleadservices.com
+adnxs.com
+criteo.com
+taboola.com
+outbrain.com
+pubmatic.com
+rubiconproject.com
+openx.net
+adcolony.com
+applovin.com
+moatads.com
+adsrvr.org
+smartadserver.com
+casalemedia.com
+gumgum.com
+sharethrough.com
+media.net
+amazon-adsystem.com
+adform.net
+teads.tv
+spotxchange.com
+yieldmo.com

@@ -1,0 +1,29 @@
+# Social Domains
+# Domains belonging to social media and social networking services.
+# One domain per line, lowercase, no trailing dot. The build system sorts,
+# deduplicates and chunks this file automatically.
+instagram.com
+facebook.com
+twitter.com
+x.com
+tiktok.com
+linkedin.com
+snapchat.com
+pinterest.com
+reddit.com
+tumblr.com
+threads.net
+mastodon.social
+telegram.org
+whatsapp.com
+discord.com
+twitch.tv
+youtube.com
+weibo.com
+vk.com
+flickr.com
+quora.com
+medium.com
+bsky.app
+clubhouse.com
+line.me
