@@ -31,22 +31,34 @@
 
   --radius: 6px;
   --radius-sm: 4px;
-  --container: 1200px;
-  --container-narrow: 780px;
+  --container: 1180px;
+  --container-narrow: 820px;
   --shadow: none;
 
-  /* Spacing scale (used consistently across components). */
-  --space-1: 0.25rem;
-  --space-2: 0.5rem;
-  --space-3: 0.75rem;
-  --space-4: 1rem;
-  --space-5: 1.5rem;
-  --space-6: 2rem;
-  --space-7: 3rem;
-  --space-8: 4rem;
+  /* Fluid typography scale. */
+  --font-size-xs: clamp(0.72rem, 0.68rem + 0.1vw, 0.8rem);
+  --font-size-sm: clamp(0.8rem, 0.76rem + 0.12vw, 0.9rem);
+  --font-size-base: clamp(0.92rem, 0.88rem + 0.14vw, 1rem);
+  --font-size-lg: clamp(1.05rem, 0.98rem + 0.3vw, 1.25rem);
+  --font-size-xl: clamp(1.2rem, 1.05rem + 0.5vw, 1.5rem);
+  --font-size-2xl: clamp(1.4rem, 1.2rem + 0.7vw, 2rem);
+  --font-size-3xl: clamp(1.8rem, 1.45rem + 1.2vw, 2.75rem);
 
-  /* Fluid horizontal gutter, shared by container + header + footer. */
-  --gutter: clamp(1rem, 0.5rem + 2vw, 2rem);
+  /* Spacing scale (used consistently across components). */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 32px;
+  --space-8: 40px;
+  --space-9: 48px;
+  --space-10: 64px;
+  --space-11: 80px;
+
+  /* Fluid horizontal gutter (24px desktop, 16px mobile, 12px very small). */
+  --gutter: 24px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -94,7 +106,7 @@ body {
   margin: 0;
   overflow-x: clip;
   font-family: var(--font-sans);
-  font-size: clamp(0.95rem, 0.9rem + 0.2vw, 1.05rem);
+  font-size: var(--font-size-base);
   line-height: 1.6;
   color: var(--text);
   background: var(--bg);
@@ -129,14 +141,14 @@ h4 {
   letter-spacing: -0.01em;
 }
 h1 {
-  font-size: clamp(1.6rem, 1.3rem + 1.8vw, 2.5rem);
+  font-size: var(--font-size-3xl);
 }
 h2 {
-  font-size: clamp(1.3rem, 1.15rem + 0.9vw, 1.7rem);
+  font-size: var(--font-size-2xl);
   margin-top: 2.25rem;
 }
 h3 {
-  font-size: clamp(1.05rem, 1rem + 0.3vw, 1.2rem);
+  font-size: var(--font-size-lg);
 }
 p {
   margin: 0.75rem 0;
@@ -187,6 +199,16 @@ pre,
   margin-inline: auto;
   padding-inline: var(--gutter);
 }
+@media (max-width: 640px) {
+  :root {
+    --gutter: 16px;
+  }
+}
+@media (max-width: 360px) {
+  :root {
+    --gutter: 12px;
+  }
+}
 
 /* Font Awesome base: keep glyphs tidy in flex/inline contexts. Size is
    controlled by the surrounding element's font-size (a glyph is 1em). */
@@ -203,7 +225,7 @@ pre,
   text-align: center;
 }
 .section {
-  padding-block: clamp(2rem, 1.5rem + 3vw, 4rem);
+  padding-block: clamp(1.75rem, 1.2rem + 2.4vw, 3.5rem);
 }
 .section-alt {
   background: var(--bg-alt);
@@ -445,7 +467,7 @@ pre,
 
 /* ----- Hero ------------------------------------------------------------ */
 .hero {
-  padding-block: clamp(2.5rem, 2rem + 4vw, 5rem);
+  padding-block: clamp(2rem, 1.5rem + 3vw, 4rem);
   border-bottom: 1px solid var(--border);
   background: var(--bg-alt);
 }
@@ -524,7 +546,7 @@ pre,
 /* ----- Cards ----------------------------------------------------------- */
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr));
   gap: 1rem;
 }
 .card-grid.two {
@@ -887,6 +909,8 @@ pre,
   border: 1px solid var(--border);
   border-radius: 4px;
   padding: 0.08em 0.36em;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 /* ----- Lists / steps --------------------------------------------------- */
@@ -901,15 +925,16 @@ pre,
   padding: 0;
 }
 .check-list li {
-  display: flex;
-  align-items: flex-start;
+  display: grid;
+  grid-template-columns: 1.25rem minmax(0, 1fr);
   gap: 0.5rem;
+  align-items: start;
   margin: 0.4rem 0;
 }
 .check-list i {
   color: var(--success);
-  margin-top: 0.2rem;
-  flex: none;
+  margin-top: 0.28rem;
+  text-align: center;
 }
 .note {
   display: flex;
@@ -1089,29 +1114,38 @@ pre,
   list-style: none;
   padding: 0;
   display: grid;
-  gap: var(--space-3);
+  gap: var(--space-4);
 }
 .steps-icon li {
-  display: flex;
-  align-items: flex-start;
+  display: grid;
+  grid-template-columns: 1.5rem minmax(0, 1fr);
   gap: var(--space-3);
-  min-width: 0;
+  align-items: start;
 }
 .step-icon {
-  flex: none;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.25rem;
-  height: 2.25rem;
-  border-radius: var(--radius-sm);
-  background: var(--bg-inset);
   color: var(--accent);
-  font-size: 1rem;
+  font-size: var(--font-size-base);
+  line-height: 1.6;
+  text-align: center;
 }
 .step-text {
-  padding-top: 0.4rem;
   min-width: 0;
+}
+
+/* ----- Submit-a-domain category button grid --------------------------- */
+.cat-btn-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+  gap: var(--space-2);
+  margin: var(--space-4) 0 var(--space-2);
+}
+.cat-btn-grid .btn {
+  width: 100%;
+  justify-content: flex-start;
+}
+.contribute-filter {
+  margin: var(--space-4) 0 var(--space-2);
+  max-width: 420px;
 }
 
 /* ----- 404 icon ------------------------------------------------------- */

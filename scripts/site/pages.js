@@ -81,10 +81,10 @@ export function homePage(model) {
     <div class="container">
       <div class="section-head">
         <h2 id="cats-h">Categories</h2>
-        <a class="link-arrow" href="/lists/">All lists ${icon("arrow", { size: 15 })}</a>
+        <a class="link-arrow" href="/lists/">All ${model.categories.length} lists ${icon("arrow")}</a>
       </div>
       <div class="card-grid">
-        ${model.categories.map(categoryCard).join("\n")}
+        ${(withData.length ? withData : model.categories).map(categoryCard).join("\n")}
       </div>
     </div>
   </section>
@@ -140,8 +140,8 @@ export function listsPage(model) {
   ]);
   const rows = model.categories
     .map(
-      (c) => `<tr data-name="${esc(c.name.toLowerCase())} ${esc(c.slug)}">
-      <td><a href="/${c.slug}/" class="cell-title">${icon(c.icon, { size: 18 })}<span>${esc(c.name)}</span></a>
+      (c) => `<tr data-name="${esc(c.name.toLowerCase())} ${esc(c.slug)} ${esc(c.description.toLowerCase())}">
+      <td><a href="/${c.slug}/" class="cell-title">${icon(c.icon)}<span>${esc(c.name)}</span></a>
         <span class="cell-desc">${esc(c.description)}</span></td>
       <td class="mono num">${fmt(c.totalDomains)}</td>
       <td class="mono num">${fmt(c.fileCount)}</td>
@@ -341,15 +341,15 @@ export function contributePage(model) {
   ]);
 
   const steps = [
-    ["github", "Fork the repository on GitHub."],
+    ["code-fork", "Fork the repository on GitHub."],
     ["code-branch", "Create a branch for your change."],
     ["file-circle-plus", `Add domains to the relevant <code>src/&lt;category&gt;/domains.txt</code>.`],
-    ["check", "Run <code>npm run validate</code> locally."],
+    ["terminal", "Run <code>npm run validate</code> locally."],
     ["code-pull-request", "Open a Pull Request."],
     ["robot", "Automated checks run (syntax, duplicates, build)."],
     ["user-check", "A maintainer reviews your change."],
     ["code-merge", "Your PR is merged."],
-    ["cloud", "Lists and the site rebuild and deploy automatically."],
+    ["cloud-arrow-up", "Lists and the site rebuild and deploy automatically."],
   ];
 
   const body = `
@@ -361,33 +361,52 @@ export function contributePage(model) {
         Adding or correcting a domain takes a few minutes.</p>
 
       <div class="btn-row">
-        <a class="btn btn-primary" href="${REPO_URL}/blob/${REPO_BRANCH}/CONTRIBUTING.md" rel="noopener">${icon("book", { size: 18 })}Read Contribution Guide</a>
-        <a class="btn btn-ghost" href="${REPO_URL}/tree/${REPO_BRANCH}/src" rel="noopener">${icon("github", { size: 18 })}Open GitHub Repository</a>
+        <a class="btn btn-primary" href="${REPO_URL}/blob/${REPO_BRANCH}/CONTRIBUTING.md" rel="noopener">${icon("book")}Read Contribution Guide</a>
+        <a class="btn btn-ghost" href="${REPO_URL}/tree/${REPO_BRANCH}/src" rel="noopener">${icon("github")}Open GitHub Repository</a>
       </div>
 
       <h2>How to contribute</h2>
-      <ol class="steps steps-icon">
+      <ol class="steps-icon">
         ${steps.map(([ic, s]) => `<li><span class="step-icon" aria-hidden="true">${icon(ic)}</span><span class="step-text">${s}</span></li>`).join("\n")}
       </ol>
 
       <h2>Submit a domain</h2>
-      <p>Edit the source file for the category directly on GitHub, then open a
+      <p>Pick a category to edit its source file directly on GitHub, then open a
         pull request. The build system handles sorting, deduplication and chunking.</p>
-      <div class="card-grid two">
+      <label class="field contribute-filter">
+        <span class="sr-only">Filter categories</span>
+        <span class="field-icon" aria-hidden="true">${icon("search")}</span>
+        <input type="search" id="cat-filter" placeholder="Filter categories…" autocomplete="off">
+      </label>
+      <div class="cat-btn-grid" id="cat-btn-grid">
         ${model.categories
           .map(
             (c) =>
-              `<a class="btn btn-sm btn-ghost" href="${REPO_URL}/edit/${REPO_BRANCH}/src/${c.slug}/domains.txt" rel="noopener">${icon(c.icon, { size: 16 })}Add to ${esc(c.name)}</a>`
+              `<a class="btn btn-sm btn-ghost" data-name="${esc(c.name.toLowerCase())} ${esc(c.slug)}" href="${REPO_URL}/edit/${REPO_BRANCH}/src/${c.slug}/domains.txt" rel="noopener">${icon(c.icon)}<span>Add to ${esc(c.name)}</span></a>`
           )
           .join("\n")}
       </div>
+      <p class="empty-state" id="cat-empty" hidden>No categories match your filter.</p>
 
-      <h2>Rules</h2>
+      <h2>Contribution rules</h2>
       <ul class="check-list">
-        <li>${icon("check", { size: 16 })}One domain per line, lowercase, no trailing dot.</li>
-        <li>${icon("check", { size: 16 })}No URLs, paths, ports, IP addresses or wildcards.</li>
-        <li>${icon("check", { size: 16 })}No duplicates within a category.</li>
-        <li>${icon("check", { size: 16 })}UTF-8, LF line endings, final newline.</li>
+        <li>${icon("check")}One domain per line — e.g. <code>example.com</code>, <code>sub.example.com</code>.</li>
+        <li>${icon("check")}Lowercase, trimmed, no trailing dot (normalization is enforced).</li>
+        <li>${icon("check")}No URLs, paths, query strings, ports, wildcards or underscores.</li>
+        <li>${icon("check")}No IP addresses or <code>localhost</code>.</li>
+        <li>${icon("check")}No duplicates within a category (duplicates are rejected).</li>
+        <li>${icon("check")}UTF-8, LF line endings, final newline.</li>
+        <li>${icon("check")}Choose an appropriate category; maintainers review every submission.</li>
+      </ul>
+
+      <h2>Automated validation</h2>
+      <p>Every pull request runs the same checks before it can be merged:</p>
+      <ul class="check-list">
+        <li>${icon("check")}<strong>Syntax</strong> — each domain is validated (labels, length, TLD).</li>
+        <li>${icon("check")}<strong>Normalization</strong> — non-canonical entries are flagged with a fix hint.</li>
+        <li>${icon("check")}<strong>Duplicate detection</strong> — within a category (error) and across categories (warning).</li>
+        <li>${icon("check")}<strong>Build</strong> — the full site and lists are generated as a test.</li>
+        <li>${icon("check")}<strong>Deployment</strong> — on merge to <code>${esc(REPO_BRANCH)}</code>, everything rebuilds and deploys automatically.</li>
       </ul>
     </div>
   </section>`;
@@ -399,6 +418,7 @@ export function contributePage(model) {
     path: "/contribute/",
     body,
     jsonld: [jsonld],
+    scripts: ["/assets/contribute.js"],
   });
 }
 

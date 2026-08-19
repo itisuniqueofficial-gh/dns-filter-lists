@@ -1,0 +1,3 @@
+# Developer Domains
+# Community-maintained classification list. Add one domain per line (lowercase,
+# no scheme/path/port). This list starts empty; entries arrive via reviewed PRs.
