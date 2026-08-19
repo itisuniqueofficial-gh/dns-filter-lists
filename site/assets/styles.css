@@ -13,13 +13,13 @@
 
   /* Light theme */
   --bg: #ffffff;
-  --bg-alt: #f7f8fa;
+  --bg-alt: #f8f9fa;
   --bg-inset: #f0f2f5;
   --surface: #ffffff;
-  --text: #16191f;
-  --text-muted: #5b636e;
-  --border: #e2e5ea;
-  --border-strong: #cdd2da;
+  --text: #17191c;
+  --text-muted: #5f6670;
+  --border: #d9dde3;
+  --border-strong: #c3c9d2;
   --accent: #1f4bd8;
   --accent-hover: #1a3fb5;
   --accent-contrast: #ffffff;
@@ -33,7 +33,7 @@
   --radius-sm: 4px;
   --container: 1200px;
   --container-narrow: 780px;
-  --shadow: 0 1px 2px rgba(16, 24, 40, 0.06);
+  --shadow: none;
 
   /* Spacing scale (used consistently across components). */
   --space-1: 0.25rem;
@@ -67,7 +67,7 @@
     --warning: #e0b155;
     --danger: #ff7b6b;
     --code-bg: #0e1424;
-    --shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+    --shadow: none;
   }
 }
 
@@ -223,8 +223,7 @@ pre,
   position: sticky;
   top: 0;
   z-index: 50;
-  background: color-mix(in srgb, var(--bg) 92%, transparent);
-  backdrop-filter: saturate(1.2) blur(8px);
+  background: var(--bg);
   border-bottom: 1px solid var(--border);
 }
 .header-inner {
@@ -312,7 +311,6 @@ pre,
     border-bottom: 1px solid var(--border);
     padding: 0.75rem var(--gutter) 1rem;
     display: none;
-    box-shadow: var(--shadow);
     max-height: calc(100dvh - 3.75rem);
     overflow-y: auto;
     z-index: 60;
@@ -388,7 +386,7 @@ pre,
   text-decoration: none;
 }
 .btn:active {
-  transform: translateY(0.5px);
+  background: var(--bg-inset);
 }
 .btn-primary {
   background: var(--accent);
@@ -436,7 +434,7 @@ pre,
 .hero {
   padding-block: clamp(2.5rem, 2rem + 4vw, 5rem);
   border-bottom: 1px solid var(--border);
-  background: linear-gradient(180deg, var(--bg-alt), var(--bg));
+  background: var(--bg-alt);
 }
 .eyebrow {
   text-transform: uppercase;
@@ -492,7 +490,6 @@ pre,
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 1rem 1.1rem;
-  box-shadow: var(--shadow);
 }
 .stat-icon {
   color: var(--accent);
@@ -527,7 +524,6 @@ pre,
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 1.25rem;
-  box-shadow: var(--shadow);
 }
 .cat-card-head {
   display: flex;
