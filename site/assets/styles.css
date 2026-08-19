@@ -34,6 +34,19 @@
   --container: 1200px;
   --container-narrow: 780px;
   --shadow: 0 1px 2px rgba(16, 24, 40, 0.06);
+
+  /* Spacing scale (used consistently across components). */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+
+  /* Fluid horizontal gutter, shared by container + header + footer. */
+  --gutter: clamp(1rem, 0.5rem + 2vw, 2rem);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -159,7 +172,16 @@ pre,
   width: 100%;
   max-width: var(--container);
   margin-inline: auto;
-  padding-inline: clamp(1rem, 0.5rem + 2vw, 2rem);
+  padding-inline: var(--gutter);
+}
+
+/* Font Awesome base: keep glyphs tidy in flex/inline contexts. Size is
+   controlled by the surrounding element's font-size (a glyph is 1em). */
+.fa-solid,
+.fa-brands,
+.fa-regular {
+  line-height: 1;
+  vertical-align: -0.075em;
 }
 .container.narrow {
   max-width: var(--container-narrow);
@@ -226,13 +248,15 @@ pre,
 .brand-mark {
   display: inline-flex;
   color: var(--accent);
+  font-size: 1.3rem;
 }
 .nav-toggle {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 2.75rem;
+  height: 2.75rem;
+  font-size: 1.15rem;
   border: 1px solid var(--border-strong);
   border-radius: var(--radius-sm);
   background: var(--surface);
@@ -286,12 +310,26 @@ pre,
     right: 0;
     background: var(--surface);
     border-bottom: 1px solid var(--border);
-    padding: 0.75rem clamp(1rem, 0.5rem + 2vw, 2rem) 1rem;
+    padding: 0.75rem var(--gutter) 1rem;
     display: none;
     box-shadow: var(--shadow);
+    max-height: calc(100dvh - 3.75rem);
+    overflow-y: auto;
+    z-index: 60;
   }
   .site-nav.open {
     display: block;
+    animation: nav-in 0.16s ease-out;
+  }
+  @keyframes nav-in {
+    from {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
   .nav-list {
     flex-direction: column;
@@ -299,11 +337,22 @@ pre,
     gap: 0.15rem;
   }
   .nav-list a {
-    padding: 0.7rem 0.75rem;
+    padding: 0.8rem 0.75rem;
   }
   .nav-gh a {
     justify-content: center;
     margin-top: 0.4rem;
+  }
+  /* Lock background scroll and dim the page while the menu is open. */
+  body.nav-open {
+    overflow: hidden;
+  }
+  body.nav-open::after {
+    content: "";
+    position: fixed;
+    inset: 3.75rem 0 0;
+    background: rgba(3, 7, 18, 0.45);
+    z-index: 40;
   }
 }
 @media (min-width: 821px) {
@@ -424,7 +473,7 @@ pre,
   align-items: center;
   gap: 0.4rem;
 }
-.badge-row svg {
+.badge-row i {
   color: var(--success);
 }
 
@@ -448,6 +497,7 @@ pre,
 .stat-icon {
   color: var(--accent);
   margin-bottom: 0.4rem;
+  font-size: 1.15rem;
 }
 .stat-value {
   font-size: clamp(1.4rem, 1.2rem + 1vw, 1.9rem);
@@ -494,10 +544,12 @@ pre,
   background: var(--bg-inset);
   color: var(--accent);
   flex: none;
+  font-size: 1.1rem;
 }
 .cat-icon.lg {
   width: 3rem;
   height: 3rem;
+  font-size: 1.4rem;
 }
 .cat-name {
   margin: 0;
@@ -628,6 +680,7 @@ pre,
 .flow-icon {
   display: inline-flex;
   color: var(--accent);
+  font-size: 1.05rem;
 }
 .flow-label {
   font-weight: 550;
@@ -828,9 +881,9 @@ pre,
   gap: 0.5rem;
   margin: 0.4rem 0;
 }
-.check-list svg {
+.check-list i {
   color: var(--success);
-  margin-top: 0.15rem;
+  margin-top: 0.2rem;
   flex: none;
 }
 .note {
@@ -845,10 +898,10 @@ pre,
   font-size: 0.92rem;
   margin: 1rem 0;
 }
-.note svg {
+.note i {
   color: var(--warning);
   flex: none;
-  margin-top: 0.15rem;
+  margin-top: 0.2rem;
 }
 .disclaimer {
   color: var(--text-muted);
@@ -863,16 +916,22 @@ pre,
   list-style: none;
   display: flex;
   flex-wrap: wrap;
-  gap: 0.4rem;
+  align-items: center;
+  gap: 0.15rem 0.4rem;
   padding: 0;
   margin-bottom: 1rem;
   font-size: 0.85rem;
   color: var(--text-muted);
 }
-.breadcrumbs li + li::before {
-  content: "/";
-  margin-right: 0.4rem;
+.breadcrumbs li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-width: 0;
+}
+.crumb-sep {
   color: var(--border-strong);
+  font-size: 0.7em;
 }
 .breadcrumbs [aria-current="page"] {
   color: var(--text);
@@ -998,6 +1057,76 @@ pre,
 .copy-btn.copied {
   color: var(--success);
   border-color: var(--success);
+}
+
+/* ----- Contribution steps with icons ---------------------------------- */
+.steps-icon {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: var(--space-3);
+}
+.steps-icon li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  min-width: 0;
+}
+.step-icon {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: var(--radius-sm);
+  background: var(--bg-inset);
+  color: var(--accent);
+  font-size: 1rem;
+}
+.step-text {
+  padding-top: 0.4rem;
+  min-width: 0;
+}
+
+/* ----- 404 icon ------------------------------------------------------- */
+.error-icon {
+  color: var(--warning);
+  font-size: clamp(2.5rem, 1.8rem + 4vw, 4rem);
+}
+.center-lede {
+  margin-inline: auto;
+}
+
+/* ----- Overflow safety ------------------------------------------------ */
+/* Grid/flex children that hold long, unbreakable content must be allowed
+   to shrink below their content size so they never force page overflow. */
+.stat,
+.card,
+.result,
+.list-row-main,
+.cell-title,
+.doc-main {
+  min-width: 0;
+}
+.btn {
+  max-width: 100%;
+}
+/* Long domain/URL text should wrap rather than push the layout wide. */
+.result-domain,
+.cell-desc {
+  overflow-wrap: anywhere;
+}
+
+/* ----- Narrow screens: stack primary actions full-width --------------- */
+@media (max-width: 480px) {
+  .hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .hero-actions .btn {
+    width: 100%;
+  }
 }
 
 /* ----- Reduced motion -------------------------------------------------- */

@@ -341,15 +341,15 @@ export function contributePage(model) {
   ]);
 
   const steps = [
-    "Fork the repository on GitHub.",
-    "Create a branch for your change.",
-    `Add domains to the relevant <code>src/&lt;category&gt;/domains.txt</code>.`,
-    "Run <code>npm run validate</code> locally.",
-    "Open a Pull Request.",
-    "Automated checks run (syntax, duplicates, build).",
-    "A maintainer reviews your change.",
-    "Your PR is merged.",
-    "Lists and the site rebuild and deploy automatically.",
+    ["github", "Fork the repository on GitHub."],
+    ["code-branch", "Create a branch for your change."],
+    ["file-circle-plus", `Add domains to the relevant <code>src/&lt;category&gt;/domains.txt</code>.`],
+    ["check", "Run <code>npm run validate</code> locally."],
+    ["code-pull-request", "Open a Pull Request."],
+    ["robot", "Automated checks run (syntax, duplicates, build)."],
+    ["user-check", "A maintainer reviews your change."],
+    ["code-merge", "Your PR is merged."],
+    ["cloud", "Lists and the site rebuild and deploy automatically."],
   ];
 
   const body = `
@@ -366,8 +366,8 @@ export function contributePage(model) {
       </div>
 
       <h2>How to contribute</h2>
-      <ol class="steps">
-        ${steps.map((s) => `<li>${s}</li>`).join("\n")}
+      <ol class="steps steps-icon">
+        ${steps.map(([ic, s]) => `<li><span class="step-icon" aria-hidden="true">${icon(ic)}</span><span class="step-text">${s}</span></li>`).join("\n")}
       </ol>
 
       <h2>Submit a domain</h2>
@@ -505,13 +505,14 @@ export function notFoundPage() {
   const body = `
   <section class="section">
     <div class="container narrow center">
+      <p class="error-icon" aria-hidden="true">${icon("circle-exclamation")}</p>
       <p class="error-code">404</p>
       <h1>Page not found</h1>
-      <p class="lede">The page you are looking for does not exist or has moved.</p>
+      <p class="lede center-lede">The page you are looking for does not exist or has moved.</p>
       <div class="btn-row center">
-        <a class="btn btn-primary" href="/">${icon("home", { size: 18 })}Home</a>
-        <a class="btn btn-ghost" href="/lists/">${icon("list", { size: 18 })}Browse Lists</a>
-        <a class="btn btn-ghost" href="/search/">${icon("search", { size: 18 })}Search</a>
+        <a class="btn btn-primary" href="/">${icon("home")}Home</a>
+        <a class="btn btn-ghost" href="/lists/">${icon("list")}Browse Lists</a>
+        <a class="btn btn-ghost" href="/documentation/">${icon("book")}Documentation</a>
       </div>
     </div>
   </section>`;

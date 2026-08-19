@@ -17,8 +17,35 @@ function initNav() {
   const setOpen = (open) => {
     toggle.setAttribute("aria-expanded", String(open));
     nav.classList.toggle("open", open);
+    document.body.classList.toggle("nav-open", open);
     toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+    if (open) {
+      // Move focus to the first link for keyboard users.
+      const first = nav.querySelector("a, button");
+      if (first) first.focus();
+    }
   };
+
+  // Focus trap: while the menu is open, keep Tab within the toggle + nav.
+  const focusables = () => [
+    toggle,
+    ...nav.querySelectorAll("a[href], button:not([disabled])"),
+  ];
+  nav.addEventListener("keydown", (e) => {
+    if (e.key !== "Tab") return;
+    if (toggle.getAttribute("aria-expanded") !== "true") return;
+    const items = focusables();
+    if (items.length === 0) return;
+    const firstEl = items[0];
+    const lastEl = items[items.length - 1];
+    if (e.shiftKey && document.activeElement === firstEl) {
+      e.preventDefault();
+      lastEl.focus();
+    } else if (!e.shiftKey && document.activeElement === lastEl) {
+      e.preventDefault();
+      firstEl.focus();
+    }
+  });
 
   toggle.addEventListener("click", () => {
     setOpen(toggle.getAttribute("aria-expanded") !== "true");
@@ -89,17 +116,26 @@ function initCopy() {
     if (!text) return;
 
     const label = btn.querySelector("span");
+    const iconEl = btn.querySelector("i");
     const original = label ? label.textContent : "";
     const ok = await copyText(text);
 
     btn.classList.add("copied");
     if (label) label.textContent = ok ? "Copied" : "Copy failed";
+    if (iconEl && ok) {
+      iconEl.classList.remove("fa-copy");
+      iconEl.classList.add("fa-check");
+    }
     btn.setAttribute("aria-live", "polite");
 
     window.clearTimeout(btn._copyTimer);
     btn._copyTimer = window.setTimeout(() => {
       btn.classList.remove("copied");
       if (label) label.textContent = original;
+      if (iconEl && ok) {
+        iconEl.classList.remove("fa-check");
+        iconEl.classList.add("fa-copy");
+      }
     }, 1600);
   });
 }

@@ -98,10 +98,14 @@ export function breadcrumbs(items) {
   const li = items
     .map((it, i) => {
       const last = i === items.length - 1;
+      const sep =
+        i > 0
+          ? `<span class="crumb-sep" aria-hidden="true">${icon("chevron-right")}</span>`
+          : "";
       const inner = last || !it.href
         ? `<span aria-current="page">${esc(it.name)}</span>`
         : `<a href="${it.href}">${esc(it.name)}</a>`;
-      return `<li>${inner}</li>`;
+      return `<li>${sep}${inner}</li>`;
     })
     .join("");
   const nav = `<nav class="breadcrumbs" aria-label="Breadcrumb"><ol>${li}</ol></nav>`;
@@ -168,6 +172,8 @@ export function layout(o) {
   <meta name="twitter:image" content="${SITE_URL}/og.svg">
 
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="/assets/fontawesome/webfonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/fontawesome/css/all.min.css">
   <link rel="stylesheet" href="/assets/styles.css">
   ${jsonldBlocks}
 </head>
