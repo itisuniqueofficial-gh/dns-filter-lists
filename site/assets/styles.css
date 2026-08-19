@@ -84,8 +84,15 @@ html {
   -webkit-text-size-adjust: 100%;
   scroll-behavior: smooth;
   scroll-padding-top: 5rem;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
 }
 body {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  overflow-x: clip;
   font-family: var(--font-sans);
   font-size: clamp(0.95rem, 0.9rem + 0.2vw, 1.05rem);
   line-height: 1.6;
@@ -96,9 +103,15 @@ body {
   overflow-wrap: break-word;
 }
 img,
-svg {
+svg,
+video,
+canvas {
   display: block;
   max-width: 100%;
+}
+img,
+video {
+  height: auto;
 }
 a {
   color: var(--accent);
@@ -618,12 +631,14 @@ pre,
   display: block;
   width: 100%;
   max-width: 100%;
+  min-width: 0;
   background: var(--code-bg);
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   padding: 0.4rem 0.6rem;
-  overflow-x: auto;
-  white-space: nowrap;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
   color: var(--text-muted);
 }
 .list-row-actions {
@@ -858,6 +873,11 @@ pre,
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 0.9rem 1rem;
+  max-width: 100%;
+  min-width: 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: break-word;
   overflow-x: auto;
   line-height: 1.5;
   margin: 1rem 0;
