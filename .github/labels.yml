@@ -3,20 +3,39 @@
 # CLI, e.g.:
 #   gh label create validation-failed -c "#b60205" -d "Automated validation failed"
 #
-# The Validate workflow applies/removes `validation-failed` and `duplicate`
-# automatically based on CI results.
+# The Validate workflow applies/removes these automatically based on results.
+
+- name: automation
+  color: "1f6feb"
+  description: Processed by the automation pipeline.
+
+- name: validation-passed
+  color: "0e8a16"
+  description: Automated validation passed.
 
 - name: validation-failed
   color: "b60205"
   description: Automated validation failed; fixes required.
 
+- name: auto-fixed
+  color: "5319e7"
+  description: Safe cleanup (normalize/dedupe/sort) was applied automatically.
+
+- name: invalid-domain
+  color: "d93f0b"
+  description: Contains one or more invalid domain entries.
+
 - name: duplicate
   color: "cccccc"
   description: Contains duplicate domain entries.
 
+- name: ready-to-merge
+  color: "0e8a16"
+  description: Eligible for automatic merge per policy.
+
 - name: needs-review
   color: "fbca04"
-  description: Awaiting maintainer review.
+  description: Requires maintainer review (protected category/path or thresholds).
 
 - name: new-list
   color: "0e8a16"

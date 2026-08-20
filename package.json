@@ -12,6 +12,7 @@
     "normalize": "node scripts/normalize-lists.js",
     "normalize:write": "node scripts/normalize-lists.js --write",
     "duplicates": "node scripts/detect-duplicates.js",
+    "report": "node scripts/ci/automation-report.js",
     "build:lists": "node scripts/build-lists.js",
     "build:index": "node scripts/generate-index.js",
     "build:stats": "node scripts/generate-stats.js",

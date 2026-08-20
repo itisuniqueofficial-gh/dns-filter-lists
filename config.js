@@ -57,6 +57,55 @@ export const SOURCE_FILE_NAME = "domains.txt";
 export const ALLOW_COMMENTS = true;
 
 /**
+ * Categories that require human review and are never eligible for auto-merge.
+ * Auto-merge eligibility for a category is derived as
+ * `!PROTECTED_CATEGORIES.includes(slug)` — see scripts/lib/policy.js.
+ * Naming a category here controls WORKFLOW review requirements only; it is not
+ * a claim that the domains inside it are malicious or unlawful.
+ */
+export const PROTECTED_CATEGORIES = [
+  "suspicious",
+  "malware",
+  "phishing",
+  "adult",
+  "gambling",
+];
+
+/**
+ * PR automation policy. Config-driven so the repo can scale without rewriting
+ * workflows. All thresholds are inclusive maximums for AUTOMATED handling; a PR
+ * exceeding any of them is labelled `needs-review` and is not auto-merged.
+ */
+export const AUTOMATION = {
+  /** Merge method for native GitHub auto-merge. */
+  autoMergeMethod: "squash",
+  /** Max source files a PR may change to remain auto-mergeable. */
+  maxChangedFiles: 25,
+  /** Max net domains a PR may add to remain auto-mergeable. */
+  maxAddedDomains: 5000,
+  /** Max total diff size (bytes) for automated handling. */
+  maxDiffBytes: 2 * 1024 * 1024,
+  /**
+   * Paths outside the contributor "safe zone" (src/** + docs). A PR touching
+   * these is flagged `needs-review` and blocked from auto-merge unless a
+   * maintainer approves.
+   */
+  protectedPaths: [
+    ".github/",
+    "scripts/",
+    "site/",
+    "config.js",
+    "package.json",
+    "package-lock.json",
+  ],
+  /** Bot identity used for automated cleanup commits (loop prevention). */
+  botActor: "github-actions[bot]",
+  /** Deterministic cleanup commit message. */
+  cleanupCommitMessage:
+    "chore: automatically normalize and deduplicate domain lists",
+};
+
+/**
  * The list categories. Order here controls display order on the site.
  * `slug` is the URL segment and the `src/<slug>/` directory name.
  */
@@ -150,6 +199,8 @@ export default {
   MAX_SOURCE_FILE_BYTES,
   SOURCE_FILE_NAME,
   ALLOW_COMMENTS,
+  PROTECTED_CATEGORIES,
+  AUTOMATION,
   CATEGORIES,
   CATEGORY_BY_SLUG,
   PATHS,

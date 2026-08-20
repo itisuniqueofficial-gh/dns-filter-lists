@@ -1,15 +1,15 @@
 # Shopping Domains
 # Well-known service domains for this classification. Community-maintained;
 # entries are added and corrected via reviewed pull requests.
+alibaba.com
+aliexpress.com
 amazon.com
+bestbuy.com
 ebay.com
 etsy.com
-aliexpress.com
-walmart.com
-target.com
-bestbuy.com
-shopify.com
 flipkart.com
-wayfair.com
 ikea.com
-alibaba.com
+shopify.com
+target.com
+walmart.com
+wayfair.com

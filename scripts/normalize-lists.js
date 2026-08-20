@@ -8,7 +8,9 @@
  *  - deduplicate within the file
  *  - LF endings + final newline
  *
- * Dry-run by default (prints a diff summary). Pass `--write` to modify files.
+ * Dry-run by default (prints a diff summary). Pass `--write` to modify files;
+ * `--dry-run` is also accepted explicitly (default behaviour). In dry-run mode
+ * a sample of would-remove (duplicate) and would-normalize entries is shown.
  * Invalid domains are reported and left in place so the author can fix them;
  * they are NOT silently discarded.
  */
@@ -26,6 +28,8 @@ step(WRITE ? "Normalizing source lists (writing)" : "Normalizing source lists (d
 
 let totalChanged = 0;
 let invalidTotal = 0;
+let removedTotal = 0;
+let normalizedTotal = 0;
 
 for (const cat of CATEGORIES) {
   const file = categorySourcePath(cat.slug);
@@ -35,6 +39,8 @@ for (const cat of CATEGORIES) {
   const { records } = parseSourceFile(file);
   const comments = [];
   const valid = new Set();
+  const wouldRemove = [];
+  const wouldNormalize = [];
   let invalid = 0;
 
   for (const r of records) {
@@ -48,6 +54,8 @@ for (const cat of CATEGORIES) {
       warn(`  src/${rel}:${r.lineNumber}: invalid '${r.raw}' (${r.validation.reason}) — left unchanged`);
       continue;
     }
+    if (r.changed) wouldNormalize.push(`${r.raw} → ${r.normalized}`);
+    if (valid.has(r.normalized)) wouldRemove.push(r.normalized);
     valid.add(r.normalized);
   }
 
@@ -58,19 +66,26 @@ for (const cat of CATEGORIES) {
   const current = fs.readFileSync(file, "utf8");
 
   invalidTotal += invalid;
+  removedTotal += wouldRemove.length;
+  normalizedTotal += wouldNormalize.length;
 
   if (next !== current) {
     totalChanged++;
     const before = current.split("\n").filter((l) => l.trim() && !l.trim().startsWith("#")).length;
     info(
       `  ${color.gray("•")} src/${rel}: ${fmt(before)} → ${fmt(sorted.length)} domains` +
-        (WRITE ? "" : color.gray(" (dry run)"))
+        (WRITE ? "" : color.gray(" (would modify)"))
     );
+    if (!WRITE) {
+      for (const d of wouldRemove.slice(0, 5)) info(`      ${color.gray("would remove:")} ${d}`);
+      for (const d of wouldNormalize.slice(0, 5)) info(`      ${color.gray("would normalize:")} ${d}`);
+    }
     if (WRITE) writeText(file, next);
   }
 }
 
 info("");
+info(`  Duplicates: ${fmt(removedTotal)} · Normalizations: ${fmt(normalizedTotal)} · Invalid: ${fmt(invalidTotal)}`);
 if (invalidTotal > 0) {
   warn(`${invalidTotal} invalid domain(s) were left unchanged. Fix or remove them.`);
 }

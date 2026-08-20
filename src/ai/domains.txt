@@ -1,14 +1,14 @@
 # AI Domains
 # Well-known service domains for this classification. Community-maintained;
 # entries are added and corrected via reviewed pull requests.
-openai.com
-chatgpt.com
 anthropic.com
+chatgpt.com
 claude.ai
+cohere.com
 huggingface.co
 midjourney.com
-stability.ai
-perplexity.ai
-cohere.com
 mistral.ai
+openai.com
+perplexity.ai
 runwayml.com
+stability.ai

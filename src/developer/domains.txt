@@ -1,15 +1,15 @@
 # Developer Domains
 # Well-known service domains for this classification. Community-maintained;
 # entries are added and corrected via reviewed pull requests.
+bitbucket.org
+codepen.io
+docker.com
 github.com
 gitlab.com
-bitbucket.org
+gitpod.io
+jetbrains.com
+kubernetes.io
 npmjs.com
 pypi.org
-docker.com
-kubernetes.io
-jetbrains.com
-gitpod.io
-replit.com
-codepen.io
 readthedocs.org
+replit.com

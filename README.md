@@ -36,6 +36,43 @@ Pages serves everything from a global CDN.
 - Hardened CI: least-privilege permissions, no secret exposure to fork PRs,
   rejection of symlinks/binaries/unexpected files.
 
+## Automation
+
+Routine contributor work is almost fully automated by a coherent,
+config-driven pipeline. Contributors only add domains and open a PR — the rest
+happens automatically:
+
+```text
+Pull Request → Auto-fix (normalize + dedupe + sort, safe commit)
+            → Automation report (validate + duplicates + policy)
+            → Build test + unit tests
+            → Single PR comment + labels + uploaded reports
+            → Native auto-merge (only when policy permits)
+            → main → build → Cloudflare Pages
+```
+
+- **Auto-fix** (`.github/workflows/auto-fix.yml`) applies only *deterministic,
+  safe* fixes to same-repo PR branches — normalization, within-file
+  deduplication and sorting — and commits them as
+  `chore: automatically normalize and deduplicate domain lists`. It never
+  force-pushes and never changes classification or meaning.
+- **Automation report** (`scripts/ci/automation-report.js`) validates domains,
+  builds a cross-category duplicate index, and computes auto-merge eligibility.
+  It writes `.validation/report.{json,md}` and `build/reports/duplicates.{json,md}`,
+  a job summary, and updates a single PR comment. Artifacts are uploaded.
+- **Auto-merge policy** is derived from `config.js`. Neutral categories are
+  auto-merge eligible; **protected categories require human review** and are
+  never auto-merged: `suspicious`, `malware`, `phishing`, `adult`, `gambling`.
+  PRs touching protected paths (`.github/`, `scripts/`, `config.js`,
+  `package.json`, `site/`) or exceeding size thresholds are labelled
+  `needs-review`. The machine-readable policy is published at `/policy.json`.
+- **Contributors never manually deduplicate or sort** — automation handles it.
+  Only genuinely ambiguous data (invalid domains) fails the check and needs a
+  human fix.
+
+Enabling native auto-merge requires the repository setting *Allow auto-merge*
+and branch protection on `main`. See [CONTRIBUTING.md](./CONTRIBUTING.md).
+
 ## Repository structure
 
 ```text
@@ -46,9 +83,9 @@ Pages serves everything from a global CDN.
 │   ├── ads/domains.txt
 │   └── ...
 ├── scripts/                  # Build system (Node, ESM, no dependencies)
-│   ├── lib/                  # domains, fs, model, git, log helpers
+│   ├── lib/                  # domains, fs, model, git, log, policy helpers
 │   ├── site/                 # HTML generator (layout, components, pages, icons)
-│   ├── ci/                   # report / verify-dist / hash-dist
+│   ├── ci/                   # automation-report / report / verify-dist / hash-dist
 │   ├── tests/                # node:test unit tests
 │   ├── validate-lists.js  normalize-lists.js  detect-duplicates.js
 │   ├── build-lists.js  generate-index.js  generate-stats.js  build-site.js
@@ -132,6 +169,7 @@ Useful scripts:
 | `npm run normalize`         | Dry-run normalization (shows what would change)    |
 | `npm run normalize:write`   | Rewrite source files into canonical, sorted form   |
 | `npm run duplicates`        | Report within/cross-category duplicates            |
+| `npm run report`            | Full automation report (validation + dedup + policy) |
 | `npm run build`             | Full pipeline → `dist/`                            |
 | `npm run dev`               | Local static server                                |
 | `npm test`                  | Unit tests                                         |

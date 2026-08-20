@@ -1,19 +1,22 @@
 name: Validate
 
-# Runs on every pull request. Validates changed source lists, detects
-# duplicates and runs a full build test. A failure here blocks merging and
-# therefore blocks deployment.
+# PR gate driven by the automation engine (scripts/ci/automation-report.js).
 #
-# SECURITY: the default GITHUB_TOKEN is read-only for pull requests from forks
-# and no repository secrets are exposed to fork PRs. This workflow never runs
-# contributor-provided scripts — it only runs the project's own Node scripts
-# against the checked-out text files.
+# Behaviour:
+#   - Auto-fixable issues (duplicates, non-canonical entries, whitespace) do NOT
+#     fail the check — the Auto-fix workflow commits those. Only HARD issues
+#     (invalid domains, structural/binary/symlink, unknown categories) fail.
+#   - Produces machine + human reports, uploads them as artifacts, writes a job
+#     summary, updates a single PR comment and applies labels.
 #
-# Third-party actions are referenced by tag for readability. Maintainers are
-# encouraged to pin them to immutable commit SHAs (see SECURITY.md).
+# SECURITY: read-only by default; the token is read-only for fork PRs and no
+# secrets are exposed. The comment/label steps run only for same-repo PRs.
+# This workflow never executes contributor-provided code (no `npm install` of
+# untrusted deps — the project has zero runtime dependencies).
 
 on:
   pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
     paths:
       - "src/**"
       - "config.js"
@@ -26,7 +29,7 @@ permissions:
   pull-requests: write
 
 concurrency:
-  group: validate-${{ github.event.pull_request.number }}
+  group: dns-filter-pr-${{ github.event.pull_request.number }}
   cancel-in-progress: true
 
 jobs:
@@ -34,48 +37,64 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - name: Checkout (no persisted credentials)
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
+          fetch-depth: 0
           persist-credentials: false
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: "20"
 
-      - name: Run validation report
-        id: checks
+      - name: Automation report (validation + dedup + policy)
+        id: report
         continue-on-error: true
-        run: node scripts/ci/report.js --comment ci-comment.md --summary
+        env:
+          GITHUB_BASE_REF: ${{ github.base_ref }}
+          PR_IS_FORK: ${{ github.event.pull_request.head.repo.full_name != github.repository }}
+          PR_IS_DRAFT: ${{ github.event.pull_request.draft }}
+        run: node scripts/ci/automation-report.js
 
       - name: Unit tests
         run: node --test scripts/tests/*.test.js
 
-      - name: Build test
-        if: steps.checks.outcome == 'success'
-        run: node scripts/build.js
+      - name: Build test (on normalized working tree)
+        run: |
+          # Apply safe cleanup locally (NOT committed) so the build test reflects
+          # the post-auto-fix state; the Auto-fix workflow performs the real commit.
+          node scripts/normalize-lists.js --write
+          node scripts/build.js
 
-      - name: Comment results on PR
+      - name: Upload automation artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: automation-reports
+          path: |
+            .validation/report.json
+            .validation/report.md
+            build/reports/duplicates.json
+            build/reports/duplicates.md
+          if-no-files-found: ignore
+          retention-days: 7
+
+      - name: Update PR comment
         if: always() && github.event.pull_request.head.repo.full_name == github.repository
         continue-on-error: true
         uses: actions/github-script@v7
         with:
           script: |
             const fs = require('fs');
-            let body = '## Domain List Validation\n\nReport unavailable.';
-            try { body = fs.readFileSync('ci-comment.md', 'utf8'); } catch {}
+            let body = '## DNS Filter Lists Automation\n\nReport unavailable.';
+            try { body = fs.readFileSync('.validation/comment.md', 'utf8'); } catch {}
+            const marker = '<!-- dns-filter-lists-automation -->';
+            body = marker + '\n' + body;
             const { owner, repo } = context.repo;
             const issue_number = context.issue.number;
-            const marker = '<!-- dns-filter-lists-validation -->';
-            body = marker + '\n' + body;
             const { data: comments } = await github.rest.issues.listComments({ owner, repo, issue_number });
             const existing = comments.find(c => c.body && c.body.includes(marker));
-            if (existing) {
-              await github.rest.issues.updateComment({ owner, repo, comment_id: existing.id, body });
-            } else {
-              await github.rest.issues.createComment({ owner, repo, issue_number, body });
-            }
+            if (existing) await github.rest.issues.updateComment({ owner, repo, comment_id: existing.id, body });
+            else await github.rest.issues.createComment({ owner, repo, issue_number, body });
 
       - name: Apply labels
         if: always() && github.event.pull_request.head.repo.full_name == github.repository
@@ -83,19 +102,21 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const labels = '${{ steps.checks.outputs.labels }}'.split(',').filter(Boolean);
+            const want = '${{ steps.report.outputs.labels }}'.split(',').filter(Boolean);
+            const managed = ['automation','validation-passed','validation-failed','duplicate','auto-fixed','invalid-domain','needs-review','ready-to-merge'];
             const { owner, repo } = context.repo;
             const issue_number = context.issue.number;
-            const remove = ['validation-failed', 'duplicate'];
-            for (const name of remove) {
-              try { await github.rest.issues.removeLabel({ owner, repo, issue_number, name }); } catch {}
+            for (const name of managed) {
+              if (!want.includes(name)) {
+                try { await github.rest.issues.removeLabel({ owner, repo, issue_number, name }); } catch {}
+              }
             }
-            if (labels.length) {
-              await github.rest.issues.addLabels({ owner, repo, issue_number, labels });
+            if (want.length) {
+              try { await github.rest.issues.addLabels({ owner, repo, issue_number, labels: want }); } catch {}
             }
 
-      - name: Fail if validation failed
-        if: steps.checks.outcome == 'failure'
+      - name: Fail if hard validation errors
+        if: steps.report.outcome == 'failure'
         run: |
-          echo "Validation failed. See the PR comment for details."
+          echo "::error::Validation found hard errors (invalid domains or structural issues). See the PR comment."
           exit 1

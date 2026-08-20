@@ -2,10 +2,10 @@
 # Well-known service domains for this classification. Community-maintained;
 # entries are added and corrected via reviewed pull requests.
 cookiebot.com
-onetrust.com
-cookieyes.com
-termly.io
-iubenda.com
-usercentrics.com
 cookiepro.com
+cookieyes.com
+iubenda.com
+onetrust.com
 osano.com
+termly.io
+usercentrics.com

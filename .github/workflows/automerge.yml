@@ -1,0 +1,72 @@
+name: Auto-merge
+
+# Enables GitHub's NATIVE auto-merge for a PR only when the automation Policy
+# Engine says it is eligible. Native auto-merge means GitHub performs the merge
+# itself once ALL branch-protection conditions (required checks + approvals +
+# up-to-date branch, no conflicts) are satisfied — so this workflow never
+# bypasses review or protection; it only opts the PR in when policy allows.
+#
+# Eligibility (see scripts/lib/policy.js): same-repo, not draft, no validation
+# errors, no protected-category changes, no protected-path changes, within size
+# thresholds.
+#
+# Requirements to take effect (documented in CONTRIBUTING.md):
+#   - Repository setting "Allow auto-merge" enabled.
+#   - Branch protection on main requiring the Validate check (+ approvals for
+#     policy where desired).
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review, labeled, unlabeled]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: automerge-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  decide:
+    # Never for forks or drafts.
+    if: >-
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Evaluate auto-merge policy
+        id: policy
+        continue-on-error: true
+        env:
+          GITHUB_BASE_REF: ${{ github.base_ref }}
+          PR_IS_FORK: "false"
+          PR_IS_DRAFT: "false"
+        run: node scripts/ci/automation-report.js
+
+      - name: Enable native auto-merge (policy eligible)
+        if: steps.policy.outputs.automerge_eligible == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          echo "Policy eligible — enabling native auto-merge (squash)."
+          gh pr merge "${{ github.event.pull_request.number }}" --auto --squash || \
+            echo "::warning::Could not enable auto-merge (ensure 'Allow auto-merge' + branch protection are configured)."
+
+      - name: Disable auto-merge (policy not eligible)
+        if: steps.policy.outputs.automerge_eligible != 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          echo "Policy not eligible — ensuring auto-merge is disabled; this PR needs human review."
+          gh pr merge "${{ github.event.pull_request.number }}" --disable-auto || true

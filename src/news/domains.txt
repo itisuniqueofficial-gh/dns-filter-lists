@@ -1,15 +1,15 @@
 # News Domains
 # Well-known service domains for this classification. Community-maintained;
 # entries are added and corrected via reviewed pull requests.
-bbc.com
-cnn.com
-nytimes.com
-theguardian.com
-reuters.com
-apnews.com
-bloomberg.com
-wsj.com
-forbes.com
 aljazeera.com
+apnews.com
+bbc.com
+bloomberg.com
+cnn.com
+forbes.com
 npr.org
+nytimes.com
+reuters.com
+theguardian.com
 washingtonpost.com
+wsj.com

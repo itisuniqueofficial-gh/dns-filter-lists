@@ -1,13 +1,13 @@
 # Messaging Domains
 # Well-known service domains for this classification. Community-maintained;
 # entries are added and corrected via reviewed pull requests.
-signal.org
-messenger.com
-wechat.com
-viber.com
-slack.com
-skype.com
-kik.com
-wire.com
-threema.ch
 element.io
+kik.com
+messenger.com
+signal.org
+skype.com
+slack.com
+threema.ch
+viber.com
+wechat.com
+wire.com

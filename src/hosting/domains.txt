@@ -1,17 +1,17 @@
 # Hosting/CDN Domains
 # Well-known service domains for this classification. Community-maintained;
 # entries are added and corrected via reviewed pull requests.
-cloudflare.com
 akamai.com
-fastly.com
 amazonaws.com
 azure.com
+cloudflare.com
 digitalocean.com
-linode.com
-vultr.com
+fastly.com
 godaddy.com
-namecheap.com
 hetzner.com
-ovh.com
+linode.com
+namecheap.com
 netlify.com
+ovh.com
 vercel.com
+vultr.com

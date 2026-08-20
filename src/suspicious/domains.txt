@@ -2,8 +2,8 @@
 # Domains flagged by the community as suspicious or low-reputation.
 # Sample entries use the reserved ".example" TLD (RFC 2606).
 free-prize-winner.example
-urgent-account-check.example
-unknown-redirect-hop.example
 newly-registered-bulk.example
-typosquat-lookalike.example
 scam-investment-offer.example
+typosquat-lookalike.example
+unknown-redirect-hop.example
+urgent-account-check.example

@@ -1,15 +1,15 @@
 # Finance Domains
 # Well-known service domains for this classification. Community-maintained;
 # entries are added and corrected via reviewed pull requests.
-paypal.com
-stripe.com
-visa.com
-mastercard.com
-chase.com
+americanexpress.com
 bankofamerica.com
-wellsfargo.com
-wise.com
+chase.com
+fidelity.com
+mastercard.com
+paypal.com
 revolut.com
 robinhood.com
-fidelity.com
-americanexpress.com
+stripe.com
+visa.com
+wellsfargo.com
+wise.com

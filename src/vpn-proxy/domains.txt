@@ -1,12 +1,12 @@
 # VPN/Proxy Domains
 # Well-known service domains for this classification. Community-maintained;
 # entries are added and corrected via reviewed pull requests.
-nordvpn.com
-expressvpn.com
-surfshark.com
-protonvpn.com
-mullvad.net
-privateinternetaccess.com
 cyberghostvpn.com
+expressvpn.com
+mullvad.net
+nordvpn.com
+privateinternetaccess.com
+protonvpn.com
+surfshark.com
 tunnelbear.com
 windscribe.com

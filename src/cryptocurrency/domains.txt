@@ -1,17 +1,17 @@
 # Cryptocurrency Domains
 # Well-known service domains for this classification. Community-maintained;
 # entries are added and corrected via reviewed pull requests.
-coinbase.com
 binance.com
-kraken.com
-crypto.com
 bitstamp.net
-gemini.com
-kucoin.com
 blockchain.com
+coinbase.com
 coingecko.com
 coinmarketcap.com
+crypto.com
 etherscan.io
-metamask.io
+gemini.com
+kraken.com
+kucoin.com
 ledger.com
+metamask.io
 trezor.io

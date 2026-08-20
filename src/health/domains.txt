@@ -1,11 +1,11 @@
 # Health Domains
 # Well-known service domains for this classification. Community-maintained;
 # entries are added and corrected via reviewed pull requests.
-who.int
-mayoclinic.org
-webmd.com
-nih.gov
-healthline.com
 clevelandclinic.org
 drugs.com
+healthline.com
+mayoclinic.org
 nhs.uk
+nih.gov
+webmd.com
+who.int

@@ -88,6 +88,58 @@ comment updates in place.
 - `main` is protected: merging requires a green CI run and approval.
 - On merge, the lists, metadata and site rebuild and deploy automatically.
 
+## What CI does on your PR
+
+- **Auto-fix** commits safe cleanup to your branch (same-repo PRs) — you do
+  **not** need to deduplicate, lowercase or sort anything manually. The commit
+  is `chore: automatically normalize and deduplicate domain lists` and never
+  force-pushes or changes meaning.
+- **Validation** runs the automation report: domain syntax, normalization,
+  within/cross-category duplicates and a full build + unit tests.
+- Posts a single ✅/❌ comment with a change summary (duplicates removed,
+  normalized, invalid, cross-category), applies labels, and uploads reports
+  (`.validation/report.*`, `build/reports/duplicates.*`) as artifacts.
+
+Only **hard** problems fail the check: invalid domains (URLs, IPs, `localhost`,
+wildcards, underscores, malformed), unexpected/binary/symlinked files, or
+unknown categories. Auto-fixable formatting never fails — it just gets fixed.
+
+## Fixing a failed PR
+
+If the check is ❌, read the PR comment. It lists the exact invalid entries,
+e.g. `Invalid domain: https://example.com`. Remove or correct them and push
+again — the comment updates in place. You never need to fix duplicates or
+sorting yourself.
+
+## Auto-merge policy
+
+Auto-merge is **config-driven** (`config.js`) and only opts a PR into GitHub's
+native auto-merge (which still respects branch protection and reviews). A PR is
+eligible only when **all** of these hold:
+
+- it comes from this repository (not a fork),
+- it is not a draft,
+- there are no validation errors,
+- it does not touch a **protected category**,
+- it does not touch **protected paths** (`.github/`, `scripts/`, `config.js`,
+  `package.json`, `site/`),
+- it is within size thresholds (changed files / added domains / diff size).
+
+**Protected categories always require human review** and are never
+auto-merged: `suspicious`, `malware`, `phishing`, `adult`, `gambling`. This
+controls *workflow review requirements only* — it is not a claim about the
+domains themselves. The live policy is published at `/policy.json`.
+
+### Enabling auto-merge (maintainers)
+
+1. Repository **Settings → General → Allow auto-merge**.
+2. Branch protection on `main`: require the **Validate** status check (and
+   approvals where you want them), require up-to-date branches, block force
+   pushes and deletions.
+3. Optionally configure a GitHub App/PAT for the Auto-fix push so the cleanup
+   commit re-runs checks (the default `GITHUB_TOKEN` push intentionally does
+   not re-trigger workflows, which prevents automation loops).
+
 ## Automated rejection policy
 
 Normal validation failures are **not** auto-closed. CI fails, comments and

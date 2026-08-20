@@ -1,16 +1,16 @@
 # Gaming Domains
 # Well-known service domains for this classification. Community-maintained;
 # entries are added and corrected via reviewed pull requests.
-steampowered.com
-epicgames.com
-xbox.com
-playstation.com
-nintendo.com
-ea.com
-ubisoft.com
-riotgames.com
-roblox.com
-minecraft.net
 battle.net
+ea.com
+epicgames.com
 gog.com
 itch.io
+minecraft.net
+nintendo.com
+playstation.com
+riotgames.com
+roblox.com
+steampowered.com
+ubisoft.com
+xbox.com

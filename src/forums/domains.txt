@@ -1,11 +1,11 @@
 # Forums Domains
 # Well-known service domains for this classification. Community-maintained;
 # entries are added and corrected via reviewed pull requests.
-stackoverflow.com
-stackexchange.com
-superuser.com
-serverfault.com
-discourse.org
-xda-developers.com
 4chan.org
+discourse.org
+serverfault.com
 somethingawful.com
+stackexchange.com
+stackoverflow.com
+superuser.com
+xda-developers.com

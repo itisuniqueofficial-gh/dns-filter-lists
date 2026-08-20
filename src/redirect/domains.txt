@@ -2,11 +2,11 @@
 # Well-known service domains for this classification. Community-maintained;
 # entries are added and corrected via reviewed pull requests.
 bit.ly
-tinyurl.com
-goo.gl
-ow.ly
 buff.ly
-rebrandly.com
-is.gd
 cutt.ly
+goo.gl
+is.gd
+ow.ly
+rebrandly.com
 shorturl.at
+tinyurl.com

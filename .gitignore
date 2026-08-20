@@ -1,6 +1,10 @@
 # Build output
 /dist/
 
+# Generated automation artifacts
+/.validation/
+/build/
+
 # Node
 node_modules/
 npm-debug.log*

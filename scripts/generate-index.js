@@ -10,9 +10,10 @@
  */
 import path from "node:path";
 
-import { SITE_URL, REPO_URL } from "../config.js";
+import { SITE_URL, REPO_URL, AUTOMATION } from "../config.js";
 import { DIST_DIR, writeJSON } from "./lib/fs-utils.js";
 import { buildModel } from "./lib/model.js";
+import { categoryPolicy } from "./lib/policy.js";
 import { step, ok, fmt } from "./lib/log.js";
 
 function categoryIndex(cat, model) {
@@ -75,7 +76,19 @@ export function generateIndex(model = buildModel()) {
   };
   writeJSON(path.join(DIST_DIR, "lists.json"), lists);
 
-  ok(`Generated lists.json + ${fmt(model.categories.length)} category index files.`);
+  // Machine-readable automation policy (per-category auto-merge + thresholds).
+  writeJSON(path.join(DIST_DIR, "policy.json"), {
+    generatedAt: model.generatedAt,
+    autoMergeMethod: AUTOMATION.autoMergeMethod,
+    thresholds: {
+      maxChangedFiles: AUTOMATION.maxChangedFiles,
+      maxAddedDomains: AUTOMATION.maxAddedDomains,
+      maxDiffBytes: AUTOMATION.maxDiffBytes,
+    },
+    categories: categoryPolicy(),
+  });
+
+  ok(`Generated lists.json + policy.json + ${fmt(model.categories.length)} category index files.`);
   return model;
 }
 

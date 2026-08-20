@@ -1,10 +1,10 @@
 # Affiliate Domains
 # Well-known service domains for this classification. Community-maintained;
 # entries are added and corrected via reviewed pull requests.
-cj.com
-shareasale.com
 awin.com
-impact.com
-rakutenadvertising.com
+cj.com
 clickbank.com
+impact.com
 partnerize.com
+rakutenadvertising.com
+shareasale.com

@@ -1,13 +1,13 @@
 # Email Domains
 # Well-known service domains for this classification. Community-maintained;
 # entries are added and corrected via reviewed pull requests.
+aol.com
+fastmail.com
 gmail.com
+gmx.com
+icloud.com
 outlook.com
 proton.me
-yahoo.com
-icloud.com
-zoho.com
-gmx.com
-fastmail.com
 tutanota.com
-aol.com
+yahoo.com
+zoho.com

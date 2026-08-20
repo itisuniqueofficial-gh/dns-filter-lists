@@ -1,12 +1,12 @@
 # Government Domains
 # Well-known service domains for this classification. Community-maintained;
 # entries are added and corrected via reviewed pull requests.
-usa.gov
-irs.gov
-gov.uk
-whitehouse.gov
-europa.eu
-canada.ca
 australia.gov.au
-nasa.gov
+canada.ca
+europa.eu
+gov.uk
+irs.gov
 medlineplus.gov
+nasa.gov
+usa.gov
+whitehouse.gov
