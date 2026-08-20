@@ -25,7 +25,6 @@ flickr.com
 quora.com
 medium.com
 bsky.app
-clubhouse.com
 line.me
 mewe.com
 minds.com
@@ -68,12 +67,10 @@ last.fm
 hearthis.at
 audiomack.com
 8tracks.com
-
 imgur.com
 9gag.com
 deviantart.com
 artstation.com
-pixiv.net
 pixiv.me
 newgrounds.com
 cara.app
@@ -149,7 +146,6 @@ geneva.com
 houseparty.com
 signal.org
 viber.com
-kik.com
 imo.im
 wechat.com
 qq.com
