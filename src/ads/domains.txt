@@ -15,8 +15,6 @@ applovin.com
 moatads.com
 adsrvr.org
 smartadserver.com
-casalemedia.com
-gumgum.com
 sharethrough.com
 media.net
 amazon-adsystem.com
@@ -33,13 +31,11 @@ adtarget.me
 adzerk.net
 bidvertiser.com
 bidswitch.net
-bluekai.com
 brainydeal.com
 casalemedia.com
 contextweb.com
 criteo.net
 dable.io
-demdex.net
 districtm.io
 doubleverify.com
 exoclick.com
@@ -54,12 +50,9 @@ insightexpressai.com
 lijit.com
 liveintent.com
 loopme.me
-mathtag.com
-mediamath.com
 mgid.com
 mopub.com
 nexage.com
-nielsen.com
 nielsenmedia.com
 nrich.ai
 omnitagjs.com
@@ -67,10 +60,7 @@ onesignal.com
 onetag-sys.com
 opera.com
 pangle.io
-permutive.com
 platform-one.co.jp
-quantcast.com
-quantserve.com
 revcontent.com
 revenuegrid.com
 rhythmone.com
@@ -144,4 +134,3 @@ tapad.com
 turn.com
 turner.com
 w55c.net
-yieldmo.com
