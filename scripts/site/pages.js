@@ -390,23 +390,27 @@ export function contributePage(model) {
 
       <h2>Contribution rules</h2>
       <ul class="check-list">
-        <li>${icon("check")}One domain per line — e.g. <code>example.com</code>, <code>sub.example.com</code>.</li>
-        <li>${icon("check")}Lowercase, trimmed, no trailing dot (normalization is enforced).</li>
-        <li>${icon("check")}No URLs, paths, query strings, ports, wildcards or underscores.</li>
-        <li>${icon("check")}No IP addresses or <code>localhost</code>.</li>
-        <li>${icon("check")}No duplicates within a category (duplicates are rejected).</li>
-        <li>${icon("check")}UTF-8, LF line endings, final newline.</li>
-        <li>${icon("check")}Choose an appropriate category; maintainers review every submission.</li>
+        ${[
+          `One domain per line — e.g. <code>example.com</code>, <code>sub.example.com</code>.`,
+          `Lowercase, trimmed, no trailing dot (normalization is enforced).`,
+          `No URLs, paths, query strings, ports, wildcards or underscores.`,
+          `No IP addresses or <code>localhost</code>.`,
+          `No duplicates within a category (duplicates are rejected).`,
+          `UTF-8, LF line endings, final newline.`,
+          `Choose an appropriate category; maintainers review every submission.`,
+        ].map((t) => `<li>${icon("check")}<span class="rule-text">${t}</span></li>`).join("\n        ")}
       </ul>
 
       <h2>Automated validation</h2>
       <p>Every pull request runs the same checks before it can be merged:</p>
       <ul class="check-list">
-        <li>${icon("check")}<strong>Syntax</strong> — each domain is validated (labels, length, TLD).</li>
-        <li>${icon("check")}<strong>Normalization</strong> — non-canonical entries are flagged with a fix hint.</li>
-        <li>${icon("check")}<strong>Duplicate detection</strong> — within a category (error) and across categories (warning).</li>
-        <li>${icon("check")}<strong>Build</strong> — the full site and lists are generated as a test.</li>
-        <li>${icon("check")}<strong>Deployment</strong> — on merge to <code>${esc(REPO_BRANCH)}</code>, everything rebuilds and deploys automatically.</li>
+        ${[
+          `<strong>Syntax</strong> — each domain is validated (labels, length, TLD).`,
+          `<strong>Normalization</strong> — non-canonical entries are flagged with a fix hint.`,
+          `<strong>Duplicate detection</strong> — within a category (error) and across categories (warning).`,
+          `<strong>Build</strong> — the full site and lists are generated as a test.`,
+          `<strong>Deployment</strong> — on merge to <code>${esc(REPO_BRANCH)}</code>, everything rebuilds and deploys automatically.`,
+        ].map((t) => `<li>${icon("check")}<span class="rule-text">${t}</span></li>`).join("\n        ")}
       </ul>
     </div>
   </section>`;
