@@ -1,3 +1,12 @@
 # VPN/Proxy Domains
-# Community-maintained classification list. Add one domain per line (lowercase,
-# no scheme/path/port). This list starts empty; entries arrive via reviewed PRs.
+# Well-known service domains for this classification. Community-maintained;
+# entries are added and corrected via reviewed pull requests.
+nordvpn.com
+expressvpn.com
+surfshark.com
+protonvpn.com
+mullvad.net
+privateinternetaccess.com
+cyberghostvpn.com
+tunnelbear.com
+windscribe.com

@@ -1,3 +1,18 @@
 # Streaming Domains
-# Community-maintained classification list. Add one domain per line (lowercase,
-# no scheme/path/port). This list starts empty; entries arrive via reviewed PRs.
+# Well-known service domains for this classification. Community-maintained;
+# entries are added and corrected via reviewed pull requests.
+netflix.com
+youtube.com
+spotify.com
+twitch.tv
+disneyplus.com
+hulu.com
+primevideo.com
+hbomax.com
+max.com
+soundcloud.com
+vimeo.com
+dailymotion.com
+deezer.com
+tidal.com
+crunchyroll.com

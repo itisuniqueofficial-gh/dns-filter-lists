@@ -1,3 +1,15 @@
 # Shopping Domains
-# Community-maintained classification list. Add one domain per line (lowercase,
-# no scheme/path/port). This list starts empty; entries arrive via reviewed PRs.
+# Well-known service domains for this classification. Community-maintained;
+# entries are added and corrected via reviewed pull requests.
+amazon.com
+ebay.com
+etsy.com
+aliexpress.com
+walmart.com
+target.com
+bestbuy.com
+shopify.com
+flipkart.com
+wayfair.com
+ikea.com
+alibaba.com

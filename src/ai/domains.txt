@@ -1,3 +1,14 @@
 # AI Domains
-# Community-maintained classification list. Add one domain per line (lowercase,
-# no scheme/path/port). This list starts empty; entries arrive via reviewed PRs.
+# Well-known service domains for this classification. Community-maintained;
+# entries are added and corrected via reviewed pull requests.
+openai.com
+chatgpt.com
+anthropic.com
+claude.ai
+huggingface.co
+midjourney.com
+stability.ai
+perplexity.ai
+cohere.com
+mistral.ai
+runwayml.com

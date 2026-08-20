@@ -84,7 +84,7 @@ export function homePage(model) {
         <a class="link-arrow" href="/lists/">All ${model.categories.length} lists ${icon("arrow")}</a>
       </div>
       <div class="card-grid">
-        ${(withData.length ? withData : model.categories).map(categoryCard).join("\n")}
+        ${model.categories.slice(0, 8).map(categoryCard).join("\n")}
       </div>
     </div>
   </section>

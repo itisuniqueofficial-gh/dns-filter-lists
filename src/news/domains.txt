@@ -1,3 +1,15 @@
 # News Domains
-# Community-maintained classification list. Add one domain per line (lowercase,
-# no scheme/path/port). This list starts empty; entries arrive via reviewed PRs.
+# Well-known service domains for this classification. Community-maintained;
+# entries are added and corrected via reviewed pull requests.
+bbc.com
+cnn.com
+nytimes.com
+theguardian.com
+reuters.com
+apnews.com
+bloomberg.com
+wsj.com
+forbes.com
+aljazeera.com
+npr.org
+washingtonpost.com

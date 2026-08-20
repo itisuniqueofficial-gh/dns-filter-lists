@@ -1,3 +1,17 @@
 # Cryptocurrency Domains
-# Community-maintained classification list. Add one domain per line (lowercase,
-# no scheme/path/port). This list starts empty; entries arrive via reviewed PRs.
+# Well-known service domains for this classification. Community-maintained;
+# entries are added and corrected via reviewed pull requests.
+coinbase.com
+binance.com
+kraken.com
+crypto.com
+bitstamp.net
+gemini.com
+kucoin.com
+blockchain.com
+coingecko.com
+coinmarketcap.com
+etherscan.io
+metamask.io
+ledger.com
+trezor.io

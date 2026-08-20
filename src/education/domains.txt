@@ -1,3 +1,14 @@
 # Education Domains
-# Community-maintained classification list. Add one domain per line (lowercase,
-# no scheme/path/port). This list starts empty; entries arrive via reviewed PRs.
+# Well-known service domains for this classification. Community-maintained;
+# entries are added and corrected via reviewed pull requests.
+coursera.org
+edx.org
+udemy.com
+khanacademy.org
+udacity.com
+duolingo.com
+brilliant.org
+skillshare.com
+mit.edu
+stanford.edu
+harvard.edu

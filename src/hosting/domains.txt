@@ -1,3 +1,17 @@
 # Hosting/CDN Domains
-# Community-maintained classification list. Add one domain per line (lowercase,
-# no scheme/path/port). This list starts empty; entries arrive via reviewed PRs.
+# Well-known service domains for this classification. Community-maintained;
+# entries are added and corrected via reviewed pull requests.
+cloudflare.com
+akamai.com
+fastly.com
+amazonaws.com
+azure.com
+digitalocean.com
+linode.com
+vultr.com
+godaddy.com
+namecheap.com
+hetzner.com
+ovh.com
+netlify.com
+vercel.com
