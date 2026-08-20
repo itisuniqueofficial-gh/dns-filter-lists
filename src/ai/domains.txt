@@ -1,19 +1,20 @@
 # AI Domains
 # Well-known service domains for this classification. Community-maintained;
 # entries are added and corrected via reviewed pull requests.
+ai.azure.com
 ai.google
 ai.google.dev
 ai.meta.com
 ai21.com
 ai21labs.com
 aimlapi.com
-ai.azure.com
 aleph-alpha.com
 amazon.science
 anthropic.com
+anyscale.com
 api.anthropic.com
-api.cohere.com
 api.cerebras.ai
+api.cohere.com
 api.deepseek.com
 api.fireworks.ai
 api.groq.com
@@ -22,7 +23,6 @@ api.openai.com
 api.replicate.com
 api.together.xyz
 api.x.ai
-anyscale.com
 assemblyai.com
 baseten.co
 beautiful.ai
@@ -83,16 +83,16 @@ lexica.art
 lightning.ai
 llama.com
 llama.meta.com
-lmstudio.ai
 lmarena.ai
+lmstudio.ai
 luma.ai
 lumalabs.ai
 magic.dev
+midjourney.com
 mistral.ai
 modal.com
 monica.im
 mosaicml.com
-midjourney.com
 novita.ai
 nvidia.ai
 nvidia.com
@@ -104,15 +104,15 @@ otter.ai
 perplexity.ai
 phind.com
 pi.ai
-pinecone.io
 pika.art
+pinecone.io
 poe.com
 poolside.ai
 predibase.com
 qdrant.tech
 recraft.ai
-replit.com
 replicate.com
+replit.com
 runwayml.com
 sambanova.ai
 scale.com
@@ -132,8 +132,8 @@ v0.dev
 vercel.ai
 vercel.com
 wandb.ai
-weightsandbiases.com
 weaviate.io
+weightsandbiases.com
 writer.com
 x.ai
 you.com
