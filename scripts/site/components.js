@@ -74,13 +74,13 @@ export function popularRow(cat) {
 /** A single generated file row on a category page (Open / Copy / Download / GitHub). */
 export function fileRow(cat, file) {
   return `<tr>
-    <td class="mono nowrap"><a href="${file.path}">${esc(file.name)}</a></td>
-    <td class="mono num">${fmt(file.count)}</td>
-    <td class="file-actions">
-      <a class="btn btn-xs" href="${file.path}" target="_blank" rel="noopener">${icon("external", { size: 15 })}<span>Open</span></a>
-      <button class="btn btn-xs copy-btn" type="button" data-copy="${esc(file.url)}">${icon("copy", { size: 15 })}<span>Copy URL</span></button>
-      <a class="btn btn-xs" href="${file.path}" download>${icon("download", { size: 15 })}<span>Download</span></a>
-      <a class="btn btn-xs btn-ghost" href="${cat.sourceUrl}" rel="noopener">${icon("github", { size: 15 })}<span>GitHub</span></a>
+    <td class="mono nowrap cell-main" data-label="File"><a href="${file.path}">${esc(file.name)}</a></td>
+    <td class="mono num" data-label="Domains">${fmt(file.count)}</td>
+    <td class="file-actions" data-label="Actions">
+      <a class="btn btn-xs" href="${file.path}" target="_blank" rel="noopener">${icon("external")}<span>Open</span></a>
+      <button class="btn btn-xs copy-btn" type="button" data-copy="${esc(file.url)}">${icon("copy")}<span>Copy URL</span></button>
+      <a class="btn btn-xs" href="${file.path}" download>${icon("download")}<span>Download</span></a>
+      <a class="btn btn-xs btn-ghost" href="${cat.sourceUrl}" rel="noopener">${icon("github")}<span>GitHub</span></a>
     </td>
   </tr>`;
 }

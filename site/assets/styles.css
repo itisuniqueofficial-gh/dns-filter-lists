@@ -804,6 +804,80 @@ pre,
   text-align: center;
 }
 
+/* Responsive tables: below 600px, stack rows into labelled cards so every
+   column stays visible without horizontal scrolling. */
+@media (max-width: 600px) {
+  .table-wrap {
+    border: 0;
+    background: transparent;
+    overflow-x: visible;
+  }
+  .data-table {
+    min-width: 0;
+    display: block;
+  }
+  .data-table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+  .data-table tbody,
+  .data-table tr,
+  .data-table td {
+    display: block;
+    width: 100%;
+  }
+  .data-table tr {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+    padding: var(--space-3) var(--space-4);
+    margin-bottom: var(--space-3);
+  }
+  .data-table td {
+    border: 0;
+    padding: 0.3rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    text-align: right;
+  }
+  .data-table td.num {
+    text-align: right;
+  }
+  .data-table td::before {
+    content: attr(data-label);
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    text-align: left;
+  }
+  /* The first cell is the card title — no label, full width. */
+  .data-table td.cell-main {
+    display: block;
+    text-align: left;
+    padding-bottom: var(--space-2);
+    margin-bottom: var(--space-1);
+    border-bottom: 1px solid var(--border);
+  }
+  .data-table td.cell-main::before {
+    content: none;
+  }
+  .data-table td.file-actions {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+  .data-table td.file-actions::before {
+    width: 100%;
+  }
+}
+
 /* ----- Toolbar / fields ------------------------------------------------ */
 .toolbar {
   margin: 1.25rem 0;

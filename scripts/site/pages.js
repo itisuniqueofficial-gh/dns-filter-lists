@@ -141,12 +141,12 @@ export function listsPage(model) {
   const rows = model.categories
     .map(
       (c) => `<tr data-name="${esc(c.name.toLowerCase())} ${esc(c.slug)} ${esc(c.description.toLowerCase())}">
-      <td><a href="/${c.slug}/" class="cell-title">${icon(c.icon)}<span>${esc(c.name)}</span></a>
+      <td class="cell-main"><a href="/${c.slug}/" class="cell-title">${icon(c.icon)}<span>${esc(c.name)}</span></a>
         <span class="cell-desc">${esc(c.description)}</span></td>
-      <td class="mono num">${fmt(c.totalDomains)}</td>
-      <td class="mono num">${fmt(c.fileCount)}</td>
-      <td class="nowrap muted">${esc(fmtDate(c.lastModified))}</td>
-      <td class="nowrap"><a class="btn btn-xs" href="/${c.slug}/">View ${icon("arrow", { size: 14 })}</a></td>
+      <td class="mono num" data-label="Domains">${fmt(c.totalDomains)}</td>
+      <td class="mono num" data-label="Files">${fmt(c.fileCount)}</td>
+      <td class="nowrap muted" data-label="Updated">${esc(fmtDate(c.lastModified))}</td>
+      <td class="nowrap" data-label="Actions"><a class="btn btn-xs" href="/${c.slug}/">View ${icon("arrow")}</a></td>
     </tr>`
     )
     .join("\n");
