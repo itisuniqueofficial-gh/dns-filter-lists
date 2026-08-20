@@ -3,7 +3,6 @@
 # entries are added and corrected via reviewed pull requests.
 cloudflareinsights.com
 goatcounter.com
-matomo.org
 pirsch.io
 plausible.io
 simpleanalytics.com
@@ -38,7 +37,6 @@ etracker.com
 fullstory.com
 gemius.com
 getsitecontrol.com
-google-analytics.com
 googleadservices.com
 googletagmanager.com
 hotjar.com
@@ -48,8 +46,6 @@ inspectlet.com
 kissmetrics.com
 krxd.net
 logrocket.com
-matomo.cloud
-matomo.org
 mixpanel.com
 mouseflow.com
 newrelic.com
@@ -58,7 +54,6 @@ nielsenmedia.com
 omtrdc.net
 optimizely.com
 pendo.io
-plausible.io
 posthog.com
 quantcast.com
 quantserve.com
@@ -86,7 +81,6 @@ appinsights.io
 appmetrica.yandex.com
 atlassian.com
 browser-intake-datadoghq.com
-datadoghq.com
 datadoghq.eu
 datadoghq.com
 firebase.google.com
@@ -117,23 +111,5 @@ usabilla.com
 visualwebsiteoptimizer.com
 vwo.com
 google-analytics.com
-analytics.google.com
-googletagmanager.com
-clarity.ms
-hotjar.com
-mixpanel.com
-amplitude.com
-segment.io
-segment.com
-heap.io
-fullstory.com
-posthog.com
 matomo.org
 matomo.cloud
-plausible.io
-snowplow.io
-datadoghq.com
-newrelic.com
-sentry.io
-logrocket.com
-pendo.io
