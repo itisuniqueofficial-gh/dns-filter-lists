@@ -1,13 +1,6 @@
 # Affiliate Domains
 # Well-known service domains for this classification. Community-maintained;
 # entries are added and corrected via reviewed pull requests.
-awin.com
-cj.com
-clickbank.com
-impact.com
-partnerize.com
-rakutenadvertising.com
-shareasale.com
 1.shopifytrack.com
 10pipsaffiliates.com
 365sbaffiliates.com
@@ -87,9 +80,12 @@ afilio.autodna.com
 anastasiasaffiliate.com
 api.monetizer101.com
 autolinkmaker.itunes.apple.com
+awin.com
 b.bnrdom.com
 bet365affiliates.com
 bingo4affiliates.com
+cj.com
+clickbank.com
 d1gpxn1nf5xsl8.cloudfront.net
 d3qrz9uuaxc8ej.cloudfront.net
 dsnr-affiliates.com
@@ -100,6 +96,7 @@ giantaffiliates.com
 horse-racing-affiliate-program.co.uk
 hosticanaffiliate.com
 iasbetaffiliates.com
+impact.com
 impressionaffiliate.mobi
 indianbannerexchange.com
 indianlinkexchange.com
@@ -112,13 +109,16 @@ megabon.postaffiliatepro.com
 microsoftaffiliates.net
 mrvids.com
 partner.linkfire.com
+partnerize.com
 poc-affiliate.com
 postaffiliatepro.com
+rakutenadvertising.com
 redirect2719.ws
 rewardsaffiliates.com
 roxyaffiliates.com
 sbaffiliates.com
 scripts.affiliatefuture.com
+shareasale.com
 stargamesaffiliate.com
 static.leaddyno.com
 sub.reichtron.com
