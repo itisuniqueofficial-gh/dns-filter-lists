@@ -1,21 +1,14 @@
 # VPN/Proxy Domains
 # Well-known service domains for this classification. Community-maintained;
 # entries are added and corrected via reviewed pull requests.
-cyberghostvpn.com
-expressvpn.com
-mullvad.net
-nordvpn.com
-privateinternetaccess.com
-protonvpn.com
-surfshark.com
-tunnelbear.com
-windscribe.com
 37er19htfd.execute-api.us-east-1.amazonaws.com
 46sdzf3zdg1dxg2.us
 482ec07ef75b3d4e8801348f4dae4ddd9fb6e0d0.com
 5wv8mwgztv.com
 75a91dc18254371ceef7451db7f54a1d67f6833a.com
 8v9m.com
+adb-dns.com
+ads-help-link2.com
 amwmhhqbtu.com
 analytics-gooal.com
 api-aqqle-link3.com
@@ -26,12 +19,16 @@ apidisco-aka.expressvpn.com
 arcai.com
 avira-vpn.com
 betternet-backend.herokuapp.com
+blogs-analysis.com
 brave.com
+cars-a.co.za
 catch.gift
 clickwork7secure.com
 coloredwool.us
 contentabc.com
 cooper-martin-white.ga
+crashes-analysis.com
+cyberghostvpn.com
 d32z5ni8t5127x.cloudfront.net
 dialertoserver.com
 domainownership.us
@@ -85,6 +82,8 @@ globaltrx.com
 gopremium-xvpn.com
 gpreport.us
 granules.us
+india-timeline.com
+indialifes.com
 jkfdslkhfzkj.tk
 jqja6tr.com
 judua3rtinpst0s.xyz
@@ -101,9 +100,12 @@ mobrain.xyz
 monsmousmada.tk
 mrr933q4t.com
 muchgates97.life
+mullvad.net
+newads-cdn.com
 news-iisbangalore-lk2.com
 newton.toolspire.com
 noip.com
+nordvpn.com
 nur68cnnc5.com
 one-zs-lk3.com
 onlineload-kja.live
@@ -114,6 +116,7 @@ piaproxy.net
 play5r.com
 printruns.us
 printtools.us
+privateinternetaccess.com
 protonvpn.com
 proxy.googlezip.net
 proxygate.com
@@ -141,10 +144,14 @@ starruby.us
 staticnetcontent.com
 sunnetdata.com
 suppheathcbelgperg.tk
+surfshark.com
 tbunet.com
 trlone.com
+tunnelbear.com
+turkmen-helper.com
 u8sj3.com
 ubpcgqbrvu.com
+uinlive-time.com
 umperrdmmq.com
 videocollage.us
 vip-xvpn.com
@@ -153,7 +160,9 @@ vpn-servers-lb-1273940223.us-east-1.elb.amazonaws.com
 vpnbook.com
 vpnmentor.com
 waitfree.us
+warninglog.com
 websitevpnx.com
+windscribe.com
 worldgravityapp.com
 x-web-vip.com
 xdzyjmfgqj.com
@@ -168,15 +177,3 @@ zcoup.com
 zdenorkorust.tk
 zmksxksaqh.com
 zqe2jx29qa.com
-ads-help-link2.com
-warninglog.com
-blogs-analysis.com
-india-timeline.com
-crashes-analysis.com
-uinlive-time.com
-adb-dns.com
-turkmen-helper.com
-cars-a.co.za
-newads-cdn.com
-turkmen-helper.com
-indialifes.com
